@@ -93,6 +93,7 @@ const CategoriesPage: NextPageWithLayout = () => {
   };
 
   const handleClickDeleteCategory = (categoryId: string) => {
+    setCategoryToDelete(categoryId)
     if (!deleteCategory) return alert("Failed to delete category");
     deleteCategory({
       categoryId: categoryId,
