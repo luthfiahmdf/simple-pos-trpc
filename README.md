@@ -1,29 +1,46 @@
-# Create T3 App
+# 🚀 Setup Project
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+Sebelum menjalankan proyek ini, Anda perlu **mendaftar akun di Clerk dan Supabase** untuk mendapatkan kredensial yang dibutuhkan.
 
-## What's next? How do I make an app with this?
+## 🔐 Clerk Setup
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+1. Daftar akun di [https://clerk.com](https://clerk.com)
+2. Buat aplikasi baru
+3. Setelah aplikasi dibuat, dapatkan nilai berikut dari dashboard Clerk:
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+   - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
+   - `CLERK_SECRET_KEY`
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+Tambahkan ke dalam file `.env.local`:
 
-## Learn More
+```env
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+CLERK_SECRET_KEY=your_clerk_secret_key
+```
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+## 📂 Supabase Setup
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+1. Daftar akun di [https://supabase.com](https://supabase.com)
+2. Buat project baru
+3. Masuk ke halaman **Project Settings > Database**
+4. Salin URL connection pooling untuk `DATABASE_URL`
+5. Salin direct database URL untuk `DIRECT_URL`
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+Tambahkan ke dalam file `.env.local`:
 
-## How do I deploy this?
+```env
+# Connect to Supabase via connection pooling
+DATABASE_URL=your_supabase_connection_pooling_url
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+# Direct connection to the database. Used for migrations
+DIRECT_URL=your_supabase_direct_connection_url
+```
+
+## ▶️ Jalankan Project
+
+Setelah semua variabel lingkungan diatur, jalankan perintah berikut:
+
+```bash
+npm install
+npm run dev
+```
