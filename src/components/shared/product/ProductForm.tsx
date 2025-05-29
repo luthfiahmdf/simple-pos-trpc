@@ -8,6 +8,7 @@ import {
 import { Input } from "@/components/ui/input";
 import {
   Select,
+  SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -16,7 +17,7 @@ import type { ProductFormSchema } from "@/forms/product";
 import { uploadFileToSignedUrl } from "@/lib/supabase";
 import { Bucket } from "@/server/bucket";
 import { api } from "@/utils/api";
-import { SelectContent } from "@radix-ui/react-select";
+
 import type { ChangeEvent, useState } from "react";
 import { useFormContext } from "react-hook-form";
 
@@ -86,7 +87,7 @@ export const ProductForm = ({
         name="categoryId"
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Price</FormLabel>
+            <FormLabel>Category</FormLabel>
             <FormControl>
               <Select
                 value={field.value}

@@ -37,6 +37,7 @@ const ProductsPage: NextPageWithLayout = () => {
       await apiUtils.product.getProduct.invalidate();
       alert("berhasil gess");
       setOpen(false);
+      createProductForm.reset();
     },
   });
 
@@ -77,7 +78,7 @@ const ProductsPage: NextPageWithLayout = () => {
                 />
               </Form>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogCancel onClick={() => createProductForm.reset()}>Cancel</AlertDialogCancel>
                 <Button type='submit' form="formProduct" onClick={createProductForm.handleSubmit(handleSubmitCreateProduct)}>
                   Create
                 </Button>
