@@ -11,7 +11,7 @@ Sebelum menjalankan proyek ini, Anda perlu **mendaftar akun di Clerk dan Supabas
    - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
    - `CLERK_SECRET_KEY`
 
-Tambahkan ke dalam file `.env.local`:
+Tambahkan ke dalam file `.env`:
 
 ```env
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
@@ -26,7 +26,7 @@ CLERK_SECRET_KEY=your_clerk_secret_key
 4. Salin URL connection pooling untuk `DATABASE_URL`
 5. Salin direct database URL untuk `DIRECT_URL`
 
-Tambahkan ke dalam file `.env.local`:
+Tambahkan ke dalam file `.env`:
 
 ```env
 # Connect to Supabase via connection pooling
