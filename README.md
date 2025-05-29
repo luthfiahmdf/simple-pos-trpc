@@ -27,7 +27,8 @@ CLERK_SECRET_KEY=your_clerk_secret_key
 5. Buka tab **ORMs**
 6. Salin file .env.local  yang tersedia, dan masukkan ke dalam variabel di bawah ini
 7. Jangan lupa mengganti `YOUR_PASSWORD` pada string tersebut dengan password database Anda (bisa dilihat di halaman **Project Settings > Database**)
-
+8. Untuk Mendapatkan NEXT_PUBLIC_SUPABASE_URL dan NEXT_PUBLIC_ANON_KEY ,klik tombol **Connect** di kanan atas,buka tab App Frameworks lalu copy isi dari .env.local ke file .env anda
+9. Untuk Mendapatkan SUPABASE_ROLE_KEY , buka halaman Project Setting, lalu buka tab API KEY ,copy isi dari service_role ke file .env anda
 Tambahkan ke dalam file `.env`:
 
 ```env
@@ -36,6 +37,10 @@ DATABASE_URL=your_supabase_connection_pooling_url
 
 # Direct connection to the database. Used for migrations
 DIRECT_URL=your_supabase_direct_connection_url
+
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_ROLE_KEY=
 ```
 
 >
