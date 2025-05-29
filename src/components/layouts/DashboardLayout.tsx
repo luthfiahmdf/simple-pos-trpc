@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { Button } from "../ui/button";
+import { SignOutButton } from "@clerk/nextjs";
 
 // Dashboard header component
 interface DashboardHeaderProps {
