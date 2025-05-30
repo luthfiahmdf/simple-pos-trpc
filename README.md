@@ -51,5 +51,6 @@ Setelah semua variabel lingkungan diatur, jalankan perintah berikut:
 
 ```bash
 npm install
+npm run db:push
 npm run dev
 ```
