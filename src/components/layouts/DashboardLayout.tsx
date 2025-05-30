@@ -11,6 +11,7 @@ import {
   SidebarMenuItem,
   SidebarProvider,
   SidebarSeparator,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -76,13 +77,15 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
   };
 
   return (
-    <SidebarProvider defaultOpen={true}>
+    <SidebarProvider >
+
       <div className="flex h-screen w-full">
         <Sidebar>
           <SidebarHeader className="p-4">
             <h2 className="text-xl font-bold">Simple POS</h2>
           </SidebarHeader>
           <SidebarContent className="px-4">
+
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton
@@ -150,9 +153,9 @@ export const DashboardLayout = ({ children }: DashboardLayoutProps) => {
             </div>
           </SidebarFooter>
         </Sidebar>
-
         <main className="relative flex-1 overflow-auto p-6">{children}</main>
       </div>
+
     </SidebarProvider>
   );
 };

@@ -19,7 +19,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 
-import { categoryFormSchema, type CategoryFormSchema } from "@/forms/category";
+import { categoryFormSchema, type CategoryFormSchema, deleteCategoryFormSchema, type DeleteCategoryFormSchema } from "@/forms/category";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { ReactElement } from "react";
 import { useState } from "react";
@@ -34,7 +34,7 @@ const CategoriesPage: NextPageWithLayout = () => {
     useState(false);
   const [editCategoryDialogOpen, setEditCategoryDialogOpen] = useState(false);
   const [categoryToDelete, setCategoryToDelete] = useState<string | null>(null);
-
+  const [deleteCategoryDialog, setDeleteCategoryDialog] = useState(false)
   const createCategoryForm = useForm<CategoryFormSchema>({
     resolver: zodResolver(categoryFormSchema),
   });
@@ -42,7 +42,9 @@ const CategoriesPage: NextPageWithLayout = () => {
   const editCategoryForm = useForm<CategoryFormSchema>({
     resolver: zodResolver(categoryFormSchema),
   });
-
+  const deleteCategoryForm = useForm<DeleteCategoryFormSchema>({
+    resolver: zodResolver(deleteCategoryFormSchema)
+  })
   const { data: categories } = api.category.getCategories.useQuery();
   const { mutate: createCategory } = api.category.createCategories.useMutation({
     onSuccess: async () => {
@@ -56,9 +58,10 @@ const CategoriesPage: NextPageWithLayout = () => {
     api.category.deleteCategoriesById.useMutation({
       onSuccess: async () => {
         await apiUtils.category.getCategories.invalidate();
-
-        setCategoryToDelete(null);
+        setDeleteCategoryDialog(false)
+        deleteCategoryForm.reset()
       },
+
     });
   const { mutate: updateCategory } =
     api.category.updateCategoriesById.useMutation({
@@ -93,13 +96,20 @@ const CategoriesPage: NextPageWithLayout = () => {
   };
 
   const handleClickDeleteCategory = (categoryId: string) => {
+    setDeleteCategoryDialog(!deleteCategoryDialog)
+
     setCategoryToDelete(categoryId)
+    deleteCategoryForm.reset({
+      categoryId: categoryId
+    })
+
+  };
+  const handleDeleteCategory = () => {
     if (!deleteCategory) return alert("Failed to delete category");
     deleteCategory({
-      categoryId: categoryId,
+      categoryId: categoryToDelete!,
     });
-  };
-
+  }
   return (
     <>
       <DashboardHeader>
@@ -184,12 +194,8 @@ const CategoriesPage: NextPageWithLayout = () => {
       </AlertDialog>
 
       <AlertDialog
-        open={!!categoryToDelete}
-        onOpenChange={(open) => {
-          if (!open) {
-            setCategoryToDelete(null);
-          }
-        }}
+        open={deleteCategoryDialog}
+        onOpenChange={setDeleteCategoryDialog}
       >
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -201,7 +207,7 @@ const CategoriesPage: NextPageWithLayout = () => {
           </AlertDialogDescription>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <Button variant="destructive">Delete</Button>
+            <Button variant="destructive" onClick={deleteCategoryForm.handleSubmit(handleDeleteCategory)}>Delete</Button>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
