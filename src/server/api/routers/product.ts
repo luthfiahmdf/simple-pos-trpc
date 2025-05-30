@@ -3,6 +3,7 @@ import { createTRPCRouter, protectedProcedure } from "../trpc";
 import { supabaseAdmin } from "@/server/supabase-admin";
 import { Bucket } from "@/server/bucket";
 import { TRPCError } from "@trpc/server";
+import { updateProductSchema } from "@/forms/product";
 
 export const ProductRouter = createTRPCRouter({
   getProduct: protectedProcedure.query(async ({ ctx }) => {
@@ -61,4 +62,39 @@ export const ProductRouter = createTRPCRouter({
     }
     return data;
   }),
-});
+  deleteProductById: protectedProcedure
+    .input(
+      z.object({
+        productId: z.string(),
+      }),
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { db } = ctx;
+      await db.product.delete({
+        where: {
+          id: input.productId,
+        },
+      });
+    }),
+  updateProductById: protectedProcedure.input(z.object({
+    id: z.string(),
+    name: z.string().min(3).max(50),
+    price: z.coerce.number().min(1000),
+    categoryId: z.string(),
+    imageUrl: z.string().url(),
+  }),
+  ).mutation(async ({ ctx, input }) => {
+    const { db } = ctx
+    await db.product.update({
+      where: {
+        id: input.id
+      },
+      data: {
+        name: input.name,
+        price: input.price,
+        categoryId: input.categoryId,
+        imageUrl: input.imageUrl
+      }
+    })
+  }),
+})

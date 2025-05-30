@@ -13,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Label } from '@/components/ui/label'
 import type { ProductFormSchema } from "@/forms/product";
 import { uploadFileToSignedUrl } from "@/lib/supabase";
 import { Bucket } from "@/server/bucket";
@@ -109,9 +110,9 @@ export const ProductForm = ({
           </FormItem>
         )}
       />
-      <div className="">
-        <label>Product Image</label>
-        <input type="file" accept="image/*" onChange={imageChangeHandler} />
+      <div className="grid w-full  items-center gap-3">
+        <Label htmlFor="picture">Product Image</Label>
+        <Input type="file" accept="image/*" onChange={imageChangeHandler} />
       </div>
     </form>
 
